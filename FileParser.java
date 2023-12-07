@@ -5,12 +5,43 @@ import org.json.*;
 import org.w3c.dom.*;
 import javax.xml.parsers.*;
 
-public interface FileParser {
-            List<CreditCard> parseInputFile(String filePath);
-            void writeOutputFile(String filePath, List<CreditCard> cards);
+public abstract class FileParser {
+    List<CreditCard> parseInputFile(String filePath);
+    void writeOutputFile(String filePath, List<CreditCard> cards);
+        
+
+    public String getCardType(CreditCard card) {
+        String cardNumber = card.getCardNumber();
+
+        // Visa: First digit is 4. Length is either 13 or 16 digits.
+        if (cardNumber.startsWith("4") && (cardNumber.length() == 13 || cardNumber.length() == 16)) {
+            return "Visa";
         }
 
-public class CSVParser implements FileParser {
+        // MasterCard: First digit is 5, second digit is in range 1 through 5 inclusive. Length is 16 digits.
+        else if (cardNumber.startsWith("5") && cardNumber.substring(1, 2).matches("[1-5]") && cardNumber.length() == 16) {
+            return "MasterCard";
+        }
+
+        // American Express: First digit is 3 and second digit is 4 or 7. Length is 15 digits.
+        else if (cardNumber.startsWith("3") && (cardNumber.substring(1, 2).equals("4") || cardNumber.substring(1, 2).equals("7")) && cardNumber.length() == 15) {
+            return "AmericanExpress";
+        }
+
+        // Discover: First four digits are 6011. Length is 16 digits.
+        else if (cardNumber.startsWith("6011") && cardNumber.length() == 16) {
+            return "Discover";
+        }
+
+        // Check for invalid or unsupported card type
+        else {
+            return "Invalid: Unsupported card type";
+        }
+    }
+}
+
+
+class CSVParser extends FileParser {
 
     @Override
     public List<CreditCard> parseInputFile(String filePath) {
@@ -20,8 +51,6 @@ public class CSVParser implements FileParser {
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
                 CreditCard card = CreditCardFactory.createCreditCard(values[0]);
-                // Assuming the first value is the card number
-                // Additional logic can be added to handle other fields
                 if (card != null) {
                     cards.add(card);
                 }
@@ -34,11 +63,19 @@ public class CSVParser implements FileParser {
 
     @Override
     public void writeOutputFile(String filePath, List<CreditCard> cards) {
-        // Implement writing logic
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+            bw.write("cardNumber,cardType\n");
+            for (CreditCard card : cards) {
+                String cardType = getCardType(card); // Assume getCardType returns the card type or error message
+                bw.write(card.getCardNumber() + "," + cardType + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 
-public class JSONParser implements FileParser {
+class JSONParser extends FileParser {
 
     @Override
     public List<CreditCard> parseInputFile(String filePath) {
@@ -62,11 +99,25 @@ public class JSONParser implements FileParser {
 
     @Override
     public void writeOutputFile(String filePath, List<CreditCard> cards) {
-        // Implement writing logic
+        JSONObject root = new JSONObject();
+        JSONArray cardArray = new JSONArray();
+        for (CreditCard card : cards) {
+            JSONObject cardObject = new JSONObject();
+            cardObject.put("cardNumber", card.getCardNumber());
+            cardObject.put("cardType", getCardType(card)); // Assume getCardType returns the card type or error message
+            cardArray.put(cardObject);
+        }
+        root.put("cards", cardArray);
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+            bw.write(root.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 
-public class XMLParser implements FileParser {
+class XMLParser extends FileParser {
 
     @Override
     public List<CreditCard> parseInputFile(String filePath) {
@@ -93,11 +144,41 @@ public class XMLParser implements FileParser {
             e.printStackTrace();
         }
         return cards;
-    }
+    }   
 
     @Override
     public void writeOutputFile(String filePath, List<CreditCard> cards) {
-        // Implement writing logic
+        try {
+            DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
+            Document document = documentBuilder.newDocument();
+
+            Element root = document.createElement("CARDS");
+            document.appendChild(root);
+
+            for (CreditCard card : cards) {
+                Element cardElement = document.createElement("CARD");
+                root.appendChild(cardElement);
+
+                Element numberElement = document.createElement("CARD_NUMBER");
+                numberElement.appendChild(document.createTextNode(card.getCardNumber()));
+                cardElement.appendChild(numberElement);
+
+                Element typeElement = document.createElement("CARD_TYPE");
+                typeElement.appendChild(document.createTextNode(getCardType(card)));
+                cardElement.appendChild(typeElement);
+            }
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource domSource = new DOMSource(document);
+            StreamResult streamResult = new StreamResult(new File(filePath));
+            transformer.transform(domSource, streamResult);
+
+        } catch (ParserConfigurationException | TransformerException | IOException e) {
+            e.printStackTrace();
+        }
     }
 }
+
 
