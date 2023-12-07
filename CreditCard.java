@@ -1,3 +1,5 @@
+// package java-individual-project;
+
 public abstract class CreditCard {
             protected String cardNumber;
             protected String expirationDate;

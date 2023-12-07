@@ -2,7 +2,7 @@ public class CreditCardFactory {
 
     public static CreditCard createCreditCard(String cardNumber) {
         // Determine the type of credit card based on the number
-        if (cardNumber.startsWith("5") && (cardNumber.length() == 16)) {
+        if (cardNumber.startsWith("5") && ((int) cardNumber.charAt(1) >= 1 && (int) cardNumber.charAt(1) <= 5)  && (cardNumber.length() == 16)) {
             return new MasterCC(cardNumber);  // Assuming a constructor that takes cardNumber
         } else if (cardNumber.startsWith("4") && (cardNumber.length() == 13 || cardNumber.length() == 16)) {
             return new VisaCC(cardNumber);
