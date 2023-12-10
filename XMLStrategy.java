@@ -11,7 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XMLAdapter implements Adapter {
+public class XMLStrategy implements Strategy {
 
     @Override
     public List<CreditCard> readCardsFromFile(String filename) throws Exception {

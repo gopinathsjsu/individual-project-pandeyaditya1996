@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JSONAdapter implements Adapter {
+public class JSONStrategy implements Strategy {
 
     @Override
     public List<CreditCard> readCardsFromFile(String filename) throws Exception {
@@ -29,7 +29,6 @@ public class JSONAdapter implements Adapter {
                 card = new InvalidCreditCard(cardNumber, expirationDate, cardHolderName, errorMessage);
             }
             
-            // Add this null check
             if (card != null) {
                 cards.add(card);
             }

@@ -2,13 +2,13 @@ import java.util.List;
 
 public class CreditCardProcessor {
 
-    private static Adapter getAdapter(String filename) {
+    private static Strategy getStrategy(String filename) {
         if (filename.endsWith(".json")) {
-            return new JSONAdapter();
+            return new JSONStrategy();
         } else if (filename.endsWith(".csv")) {
-            return new CSVAdapter();
+            return new CSVStrategy();
         } else if (filename.endsWith(".xml")) {
-            return new XMLAdapter();
+            return new XMLStrategy();
         } else {
             throw new IllegalArgumentException("Unsupported file format");
         }
@@ -16,10 +16,10 @@ public class CreditCardProcessor {
 
     public static void processFile(String inputFilename, String outputFilename) {
         try {
-            Adapter adapter = getAdapter(inputFilename);
+            Strategy Strategy = getStrategy(inputFilename);
 
-            List<CreditCard> creditCards = adapter.readCardsFromFile(inputFilename);
-            adapter.writeCardsToFile(creditCards, outputFilename);
+            List<CreditCard> creditCards = Strategy.readCardsFromFile(inputFilename);
+            Strategy.writeCardsToFile(creditCards, outputFilename);
 
             System.out.println("Processing completed successfully.");
         } catch (Exception e) {

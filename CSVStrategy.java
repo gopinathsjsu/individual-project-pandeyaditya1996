@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CSVAdapter implements Adapter {
+public class CSVStrategy implements Strategy {
 
     @Override
     public List<CreditCard> readCardsFromFile(String filename) throws Exception {
