@@ -1,57 +1,29 @@
-// package java-individual-project;
-
 public abstract class CreditCard {
     protected String cardNumber;
+    protected String expirationDate;
+    protected String cardHolderName;
 
-    // Constructor
-    public CreditCard(String cardNumber) {
+    public CreditCard(String cardNumber, String expirationDate, String cardHolderName) {
         this.cardNumber = cardNumber;
+        this.expirationDate = expirationDate;
+        this.cardHolderName = cardHolderName;
     }
+
+    // Abstract method to validate card number
+    public abstract boolean isValid();
 
     // Getters
     public String getCardNumber() {
         return cardNumber;
     }
 
-    // Setters
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
-    }
-}
-class VisaCC extends CreditCard {
-    // Visa specific logic
-    public VisaCC(String cardNumber) {
-        super(cardNumber);
+    public String getExpirationDate() {
+        return expirationDate;
     }
 
-    // Additional Visa-specific methods
-    // ...
-}
-
-class MasterCC extends CreditCard {
-    // MasterCard specific logic
-    public MasterCC(String cardNumber) {
-        super(cardNumber);
+    public String getCardHolderName() {
+        return cardHolderName;
     }
 
-    // Additional MasterCard-specific methods
-    // ...
+    // You can add other common methods here if needed
 }
-
-class AmExCC extends CreditCard {
-    // American Express specific logic
-    public AmExCC(String cardNumber) {
-        super(cardNumber);
-    }
-
-}
-
-class DiscoverCC extends CreditCard {
-    // American Express specific logic
-    public DiscoverclearCC(String cardNumber) {
-        super(cardNumber);
-    }
-
-}
-
-

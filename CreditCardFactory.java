@@ -1,17 +1,26 @@
 public class CreditCardFactory {
 
-    public static CreditCard createCreditCard(String cardNumber) {
-        // Determine the type of credit card based on the number
-        if (cardNumber.startsWith("5") && ((int) cardNumber.charAt(1) >= 1 && (int) cardNumber.charAt(1) <= 5)  && (cardNumber.length() == 16)) {
-            return new MasterCC(cardNumber);  // Assuming a constructor that takes cardNumber
-        } else if (cardNumber.startsWith("4") && (cardNumber.length() == 13 || cardNumber.length() == 16)) {
-            return new VisaCC(cardNumber);
-        } else if (cardNumber.startsWith("3") && (cardNumber.charAt(1) == '4' || cardNumber.charAt(1) == '7') && cardNumber.length() == 15) {
-            return new AmExCC(cardNumber);
-        } else if (cardNumber.startsWith("6011") && cardNumber.length() == 16) {
-            return new DiscoverCC(cardNumber);  // Assuming a DiscoverCC class is to be created
-        } else {
-            return null;  // Invalid or unsupported card type
+    public static CreditCard getCreditCard(String cardNumber, String expirationDate, String cardHolderName) 
+    {
+        if (cardNumber.startsWith("4") && (cardNumber.length() == 13 || cardNumber.length() == 16)) 
+        {
+            return new Visa(cardNumber, expirationDate, cardHolderName);
+        } 
+        else if (cardNumber.startsWith("5") && cardNumber.length() == 16) 
+        {
+            return new MasterCard(cardNumber, expirationDate, cardHolderName);
+        } 
+        else if ((cardNumber.startsWith("34") || cardNumber.startsWith("37")) && cardNumber.length() == 15) 
+        {
+            return new AmericanExpress(cardNumber, expirationDate, cardHolderName);
+        } 
+        else if (cardNumber.startsWith("6011") && cardNumber.length() == 16) 
+        {
+            return new Discover(cardNumber, expirationDate, cardHolderName);
+        } 
+        else 
+        {
+            return null; 
         }
     }
 }
