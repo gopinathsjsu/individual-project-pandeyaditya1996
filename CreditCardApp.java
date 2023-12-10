@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class CreditCardProcessor {
+public class CreditCardApp {
 
     private static Strategy getStrategy(String filename) {
         if (filename.endsWith(".json")) {
@@ -21,15 +21,15 @@ public class CreditCardProcessor {
             List<CreditCard> creditCards = Strategy.readCardsFromFile(inputFilename);
             Strategy.writeCardsToFile(creditCards, outputFilename);
 
-            System.out.println("Processing completed successfully.");
+            System.out.println("File processed properly.");
         } catch (Exception e) {
-            System.err.println("Error processing file: " + e.getMessage());
+            System.err.println("File processing errored due to: " + e.getMessage());
         }
     }
 
     public static void main(String[] args) {
         if (args.length != 2) {
-            System.out.println("Usage: java CreditCardProcessor <inputFile> <outputFile>");
+            System.out.println("Usage: java CreditCardApp <inputFile> <outputFile>");
             return;
         }
 
