@@ -6,8 +6,7 @@ public class Visa extends CreditCard {
 
     @Override
     public boolean isValid() {
-        // Visa card validation logic
-        // Visa cards start with 4 and are either 13 or 16 digits long
+
         return cardNumber.startsWith("4") && (cardNumber.length() == 13 || cardNumber.length() == 16);
     }
 }

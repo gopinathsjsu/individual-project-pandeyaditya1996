@@ -5,12 +5,12 @@ public class CreditCardApp {
     private static Strategy getStrategy(String filename) {
         if (filename.endsWith(".json")) {
             return new JSONStrategy();
-        } else if (filename.endsWith(".csv")) {
-            return new CSVStrategy();
         } else if (filename.endsWith(".xml")) {
             return new XMLStrategy();
+        } else if (filename.endsWith(".csv")) {
+            return new CSVStrategy();            
         } else {
-            throw new IllegalArgumentException("Unsupported file format");
+            throw new IllegalArgumentException("File format which is given is not supported ");
         }
     }
 

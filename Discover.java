@@ -6,8 +6,7 @@ public class Discover extends CreditCard {
 
     @Override
     public boolean isValid() {
-        // Discover card validation logic
-        // Discover cards start with 6011 and are 16 digits long
-        return cardNumber.startsWith("6011") && cardNumber.length() == 16;
+
+        return cardNumber.length() == 16 && cardNumber.startsWith("6011");
     }
 }

@@ -3,4 +3,4 @@
 Commands to run on MAC -->
 
 1) javac -cp ".:lib/*" *.java  
-2) java -cp '.:lib/*' CreditCardProcessor input_file.xml output_file.xml
+2) java -cp '.:lib/*' CreditCardApp input_file.xml output_file.xml
