@@ -45,4 +45,4 @@ The design pattern I implemented is the Factory Method Pattern, as demonstrated 
 3)There's a potential breach of the open-closed principle should modifications become necessary in the current factory method logic to integrate new card types.
 
 
->>>>>>> 60259661a93d1768aa20158d7105d014ed1cc174
+[Strategy Class diagram] [https://github.com/gopinathsjsu/individual-project-pandeyaditya1996/blob/main/class_diagrams_and_report/classDiagram1.jpeg]
