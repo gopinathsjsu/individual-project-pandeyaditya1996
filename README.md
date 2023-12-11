@@ -1,6 +1,6 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/MrnpBhWc)
 
-Commands to run on MAC -->
+## Commands to run on MAC -->
 
 1) javac -cp ".:lib/*" *.java  
 
@@ -10,16 +10,16 @@ Class diagrams will be present in REPO also
 
 ![Strategy Class diagram](https://github.com/gopinathsjsu/individual-project-pandeyaditya1996/blob/main/class_diagrams_and_report/classDiagram1.jpeg)
 
-**The Primary Problem**
+## **The Primary Problem**
 
 The primary issue I'm addressing is identifying the type of card represented by a record that includes a credit card number, expiration date, and cardholder's name. The main challenge is to read these records, validate the credit card number, determine who issued the card, and create an object of the appropriate credit card class.
 
-**Secondary Problems**
+## **Secondary Problems**
 
 Allowing various file extensions: The system should be able to handle different input file formats (CSV, JSON, XML) and also accept new formats in the future.
 Credit Card Validation: Each credit card number must be validated to match if it's a legitimate number and identify the card issuer company.
 
-**Design Pattern:**
+## **Design Pattern:**
 
 **-Strategy Pattern**
 
