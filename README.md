@@ -8,6 +8,8 @@ Commands to run on MAC -->
 
 Class diagrams will be present in REPO also
 
+![Strategy Class diagram](https://github.com/gopinathsjsu/individual-project-pandeyaditya1996/blob/main/class_diagrams_and_report/classDiagram1.jpeg)
+
 **The Primary Problem**
 
 The primary issue I'm addressing is identifying the type of card represented by a record that includes a credit card number, expiration date, and cardholder's name. The main challenge is to read these records, validate the credit card number, determine who issued the card, and create an object of the appropriate credit card class.
@@ -33,6 +35,8 @@ In this implementation, I employed the Strategy Pattern. The method isValid() is
 
 The secondary problem handled here involves creating the required objects for accommodating different types of input files (e.g., CSV, XML, or JSON).
 
+![Strategy Class diagram](https://github.com/gopinathsjsu/individual-project-pandeyaditya1996/blob/main/class_diagrams_and_report/classDiagram2.jpeg)
+
 **-Factory Pattern**
 
 The design pattern I implemented is the Factory Method Pattern, as demonstrated in my CreditCardFactory class. This class is responsible for the creation of CreditCard object instances. It utilizes a method that receives inputs such as cardNumber, expirationDate, and cardHolderName and determines which specific CreditCard subclass to create based on certain criteria. This method employs conditional checks on the cardNumber to identify the credit card type. Depending on these checks, it either instantiates and returns an object of a relevant subclass (such as VisaCC, MasterCC, etc.) or returns null if the card number does not align with any recognized patterns. In this setup, the client code acquires a CreditCard instance through the factory method (getCreditCard), with the actual class of the resulting object varying based on the criteria defined within the factory method.
@@ -45,4 +49,4 @@ The design pattern I implemented is the Factory Method Pattern, as demonstrated 
 3)There's a potential breach of the open-closed principle should modifications become necessary in the current factory method logic to integrate new card types.
 
 
-[Strategy Class diagram] [https://github.com/gopinathsjsu/individual-project-pandeyaditya1996/blob/main/class_diagrams_and_report/classDiagram1.jpeg]
+
